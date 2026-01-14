@@ -241,7 +241,7 @@ export class DocsPage extends OpenAPIRoute {
 
         <section>
             <h2>Playground</h2>
-            <input type="text" id="idInput" class="playground-input" placeholder="Enter country code (us, jp)" value="us">
+            <input type="text" id="idInput" class="playground-input" placeholder="Enter country code (us, jp)" value="PS">
             <button class="btn-primary" onclick="generate()">Preview Flag</button>
 
             <div id="result" class="result-area">
