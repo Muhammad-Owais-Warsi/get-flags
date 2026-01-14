@@ -2,15 +2,17 @@
 import { fromHono } from "chanfana";
 import { Hono } from "hono";
 import { GetFlag } from "./endpoints/flag";
+import { DocsPage } from "./endpoints/docs";
 
 const app = new Hono();
 const openapi = fromHono(app, {
-    docs_url: "/",
-    openapi: "3.0.0",
+    docs_url: "/openapi",
 });
 
-// THIS LINE IS THE KEY:
-// If you want to hit /api/flags/in, the path MUST be "/api/flags/:identifier"
+// Custom HTML documentation as primary landing page
+openapi.get("/", DocsPage);
+
+// Flag API endpoint
 openapi.get("/api/flags/:identifier", GetFlag);
 
 export default app;
