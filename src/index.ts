@@ -1,26 +1,16 @@
+// index.ts
 import { fromHono } from "chanfana";
 import { Hono } from "hono";
-import { TaskCreate } from "./endpoints/taskCreate";
-import { TaskDelete } from "./endpoints/taskDelete";
-import { TaskFetch } from "./endpoints/taskFetch";
-import { TaskList } from "./endpoints/taskList";
+import { GetFlag } from "./endpoints/flag";
 
-// Start a Hono app
-const app = new Hono<{ Bindings: Env }>();
-
-// Setup OpenAPI registry
+const app = new Hono();
 const openapi = fromHono(app, {
-	docs_url: "/",
+    docs_url: "/",
+    openapi: "3.0.0",
 });
 
-// Register OpenAPI endpoints
-openapi.get("/api/tasks", TaskList);
-openapi.post("/api/tasks", TaskCreate);
-openapi.get("/api/tasks/:taskSlug", TaskFetch);
-openapi.delete("/api/tasks/:taskSlug", TaskDelete);
+// THIS LINE IS THE KEY:
+// If you want to hit /api/flags/in, the path MUST be "/api/flags/:identifier"
+openapi.get("/api/flags/:identifier", GetFlag);
 
-// You may also register routes for non OpenAPI directly on Hono
-// app.get('/test', (c) => c.text('Hono!'))
-
-// Export the Hono app
 export default app;
